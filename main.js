@@ -3,6 +3,26 @@ const tabla = document.getElementById("tableBodyRecetas");
 const formulario = document.getElementById("formulario");
 let arrayRecetas = [];
 
+$(document).ready(function(){
+    var tablaRecetas = $("#dataTableRecetas").DataTable({
+        columnDefs: [
+            {
+                targets: -1,
+                data: null,
+                defaultContent: `
+                    <button type="button" class="btn btn-info" id="btnInfo"><i class="bi bi-arrow-up-right-square-fill"></i></button>
+                    <button type="button" class="btn btn-warning" id="btnEditar"><i class="bi bi-pencil-fill"></i></button>
+                    <button type="button" class="btn btn-danger" id="btnBorrar"><i class="bi bi-trash-fill"></i></button>`,
+            },
+        ],
+    });
+
+    $("#tableBodyRecetas").on("click", $("#btnBorrar"), function () {
+        var data = tablaRecetas.row($(this).parents('tr'));
+        console.log(data);
+    });
+});
+
 const crearReceta = (nombreReceta, ingredientes, instrucciones) =>{
     let receta = {
         nombreReceta: nombreReceta,
@@ -16,16 +36,6 @@ const crearReceta = (nombreReceta, ingredientes, instrucciones) =>{
 const guardarLocalStorage = () =>{
     localStorage.setItem("Recetas", JSON.stringify(arrayRecetas));
     llenarTabla();
-}
-
-// se asume que el objeto obtenido es un JSON
-function obtenerLocalStorage(key){
-    if (localStorage.getItem(key)){
-        let receta = JSON.parse(localStorage.getItem(key));
-        console.log(receta);
-    } else{
-        console.log("No existe la llave entregada");
-    }
 }
 
 const llenarTabla = () =>{
@@ -44,7 +54,7 @@ const llenarTabla = () =>{
                 <td>${elemento.ingredientes}</td>
                 <td>${elemento.instrucciones}</td>
                 <td>
-                    <button type="button" class="btn btn-info"><i class="bi bi-arrow-up-right-square-fill"></i></button>
+                    <button type="button" class="btn btn-info" id="btnInfo"><i class="bi bi-arrow-up-right-square-fill"></i></button>
                     <button type="button" class="btn btn-warning" id="btnEditar"><i class="bi bi-pencil-fill"></i></button>
                     <button type="button" class="btn btn-danger" id="btnBorrar"><i class="bi bi-trash-fill"></i></button>
                 </td>
@@ -55,20 +65,11 @@ const llenarTabla = () =>{
     }
 }
 
-const agregarReceta = (nombreReceta, ingredientes, instrucciones) =>{
-    
-}
+// const eliminarLocalStorage = (receta) =>{
 
-$("#tableBodyRecetas").on("click", "tr", function(){
-    alert('Row index: ' + tabla.row(this).index());
-});
-
-
-
+// }
 
 // event listener
-document.addEventListener("DOMContentLoaded", llenarTabla);
-
 formulario.addEventListener("submit", (e) =>{
     e.preventDefault();
     let nombreReceta = document.getElementById("nombreReceta").value;
@@ -82,3 +83,16 @@ formulario.addEventListener("submit", (e) =>{
     location.reload();
 
 })
+
+document.addEventListener("DOMContentLoaded", llenarTabla);
+
+// tabla.addEventListener("click", (e) =>{
+//     e.preventDefault();
+//     console.log(e.path[3].childNodes[1].innerText);
+//     console.log(e.target.innerHTML);
+// });
+
+// $("#tableBodyRecetas").on("click", $("#btnEditar"), function(){
+//     var data= tabla.row($(this).parents("tr")).data();
+//     console.log(data[0]);
+// });
