@@ -5,22 +5,41 @@ let arrayRecetas = [];
 
 $(document).ready(function(){
     var tablaRecetas = $("#dataTableRecetas").DataTable({
-        columnDefs: [
-            {
-                targets: -1,
-                data: null,
-                defaultContent: `
+        "autoWidth": true,
+        "columns": [
+            {"data":"id"},
+            {"data":"nombre"},
+            {"data":"ingredientes"},
+            {"data":"instrucciones"},
+            {"data":"acciones", "render": function(data, type, row, meta){
+                return `
                     <button type="button" class="btn btn-info" id="btnInfo"><i class="bi bi-arrow-up-right-square-fill"></i></button>
                     <button type="button" class="btn btn-warning" id="btnEditar"><i class="bi bi-pencil-fill"></i></button>
-                    <button type="button" class="btn btn-danger" id="btnBorrar"><i class="bi bi-trash-fill"></i></button>`,
-            },
-        ],
+                    <button type="button" class="btn btn-danger" id="btnBorrar"><i class="bi bi-trash-fill"></i></button>`
+            }}
+        ]
     });
 
-    $("#tableBodyRecetas").on("click", $("#btnBorrar"), function () {
-        var data = tablaRecetas.row($(this).parents('tr'));
-        console.log(data);
+    $("#dataTableRecetas tbody").on("click", "#btnInfo", function () {
+
+        var row = $(this).parents('tr')[0];
+        // tablaRecetas.row(row).data().id
+        console.log("Boton info.id:", tablaRecetas.row(row).data().id);
+        // console.log("Boton info.nombre:", tablaRecetas.row(row).data().nombre);
+        // console.log("Boton info.ingredientes:", tablaRecetas.row(row).data().ingredientes);
+        // console.log("Boton info.instrucciones:", tablaRecetas.row(row).data().instrucciones);
     });
+
+    $("#dataTableRecetas tbody").on("click", "#btnEditar", function () {
+        var row = $(this).parents('tr')[0];
+        console.log("Boton editar:", tablaRecetas.row(row).data().id);
+    });
+
+    $('#dataTableRecetas tbody').on('click', "#btnBorrar", function () {
+        var row = $(this).parents('tr')[0];
+        console.log("Boton borrar:", tablaRecetas.row(row).data().id);
+    });
+    
 });
 
 const crearReceta = (nombreReceta, ingredientes, instrucciones) =>{
