@@ -13,8 +13,8 @@ $(document).ready(function(){
             {"data":"instrucciones"},
             {"data":"acciones", "render": function(){
                 return `
-                    <button type="button" class="btn btn-info" id="btnInfo"><i class="bi bi-arrow-up-right-square-fill"></i></button>
-                    <button type="button" class="btn btn-warning" id="btnEditar"><i class="bi bi-pencil-fill"></i></button>
+                    <button class="btn btn-info" id="btnInfo" data-bs-toggle="modal" data-bs-target="#agregarReceta"><i class="bi bi-arrow-up-right-square-fill"></i></button>
+                    <button class="btn btn-warning" id="btnEditar" data-bs-toggle="modal" data-bs-target="#agregarReceta"><i class="bi bi-pencil-fill"></i></button>
                     <button type="button" class="btn btn-danger" id="btnBorrar"><i class="bi bi-trash-fill"></i></button>`
             }}
         ]
@@ -25,18 +25,30 @@ $(document).ready(function(){
         var nombre = tablaRecetas.row(row).data().nombre;
         var ingredientes = tablaRecetas.row(row).data().ingredientes;
         var instrucciones = tablaRecetas.row(row).data().instrucciones;
-        var modal = document.getElementById("agregarReceta");
+        
+        $("#nombreReceta").val(nombre);
+        $("#ingredientes").val(ingredientes);
+        $("#instrucciones").val(instrucciones);
 
-        // tablaRecetas.row(row).data().id
-        console.log("Boton info.id:", tablaRecetas.row(row).data().id);
-        // console.log("Boton info.nombre:", tablaRecetas.row(row).data().nombre);
-        // console.log("Boton info.ingredientes:", tablaRecetas.row(row).data().ingredientes);
-        // console.log("Boton info.instrucciones:", tablaRecetas.row(row).data().instrucciones);
+        $("#nombreReceta").prop("readonly", true);
+        $("#ingredientes").prop("readonly", true);
+        $("#instrucciones").prop("readonly", true);
     });
 
     $("#dataTableRecetas tbody").on("click", "#btnEditar", function () {
         var row = $(this).parents('tr')[0];
         console.log("Boton editar:", tablaRecetas.row(row).data().id);
+        var row = $(this).parents('tr')[0];
+        var nombre = tablaRecetas.row(row).data().nombre;
+        var ingredientes = tablaRecetas.row(row).data().ingredientes;
+        var instrucciones = tablaRecetas.row(row).data().instrucciones;
+        $("#nombreReceta").prop("readonly", false);
+        $("#ingredientes").prop("readonly", false);
+        $("#instrucciones").prop("readonly", false);
+
+        $("#nombreReceta").val(nombre);
+        $("#ingredientes").val(ingredientes);
+        $("#instrucciones").val(instrucciones);
     });
 
     $('#dataTableRecetas tbody').on('click', "#btnBorrar", function () {
@@ -49,7 +61,7 @@ $(document).ready(function(){
             guardarLocalStorage();
             alert("La receta ha sido borrada")
         }
-    });    
+    });
 });
 
 const crearReceta = (nombreReceta, ingredientes, instrucciones) =>{
