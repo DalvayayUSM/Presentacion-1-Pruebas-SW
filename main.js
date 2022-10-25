@@ -21,8 +21,9 @@ $(document).ready(function(){
     });
 
     $("#dataTableRecetas tbody").on("click", "#btnInfo", function () {
-
         var row = $(this).parents('tr')[0];
+        $("#agregarReceta").modal();
+        
         // tablaRecetas.row(row).data().id
         console.log("Boton info.id:", tablaRecetas.row(row).data().id);
         // console.log("Boton info.nombre:", tablaRecetas.row(row).data().nombre);
@@ -37,9 +38,17 @@ $(document).ready(function(){
 
     $('#dataTableRecetas tbody').on('click', "#btnBorrar", function () {
         var row = $(this).parents('tr')[0];
-        console.log("Boton borrar:", tablaRecetas.row(row).data().id);
-    });
-    
+        var id = parseInt(tablaRecetas.row(row).data().id)-1;
+        var nombre = tablaRecetas.row(row).data().nombre;
+
+        if (confirm("¿Est\u00e1 seguro(a) de eliminar la receta " + nombre +" ?") == true) {
+            console.log("id:", id);
+            console.log("largo arreglo:", arrayRecetas.length);
+            arrayRecetas.splice(id, 1);
+            guardarLocalStorage();
+            console.log("largo arreglo:", arrayRecetas.length);
+        }
+    });    
 });
 
 const crearReceta = (nombreReceta, ingredientes, instrucciones) =>{
@@ -104,14 +113,3 @@ formulario.addEventListener("submit", (e) =>{
 })
 
 document.addEventListener("DOMContentLoaded", llenarTabla);
-
-// tabla.addEventListener("click", (e) =>{
-//     e.preventDefault();
-//     console.log(e.path[3].childNodes[1].innerText);
-//     console.log(e.target.innerHTML);
-// });
-
-// $("#tableBodyRecetas").on("click", $("#btnEditar"), function(){
-//     var data= tabla.row($(this).parents("tr")).data();
-//     console.log(data[0]);
-// });
