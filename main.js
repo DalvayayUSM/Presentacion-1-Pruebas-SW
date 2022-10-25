@@ -11,7 +11,7 @@ $(document).ready(function(){
             {"data":"nombre"},
             {"data":"ingredientes"},
             {"data":"instrucciones"},
-            {"data":"acciones", "render": function(data, type, row, meta){
+            {"data":"acciones", "render": function(){
                 return `
                     <button type="button" class="btn btn-info" id="btnInfo"><i class="bi bi-arrow-up-right-square-fill"></i></button>
                     <button type="button" class="btn btn-warning" id="btnEditar"><i class="bi bi-pencil-fill"></i></button>
@@ -22,8 +22,11 @@ $(document).ready(function(){
 
     $("#dataTableRecetas tbody").on("click", "#btnInfo", function () {
         var row = $(this).parents('tr')[0];
-        $("#agregarReceta").modal();
-        
+        var nombre = tablaRecetas.row(row).data().nombre;
+        var ingredientes = tablaRecetas.row(row).data().ingredientes;
+        var instrucciones = tablaRecetas.row(row).data().instrucciones;
+        var modal = document.getElementById("agregarReceta");
+
         // tablaRecetas.row(row).data().id
         console.log("Boton info.id:", tablaRecetas.row(row).data().id);
         // console.log("Boton info.nombre:", tablaRecetas.row(row).data().nombre);
@@ -42,11 +45,9 @@ $(document).ready(function(){
         var nombre = tablaRecetas.row(row).data().nombre;
 
         if (confirm("¿Est\u00e1 seguro(a) de eliminar la receta " + nombre +" ?") == true) {
-            console.log("id:", id);
-            console.log("largo arreglo:", arrayRecetas.length);
             arrayRecetas.splice(id, 1);
             guardarLocalStorage();
-            console.log("largo arreglo:", arrayRecetas.length);
+            alert("La receta ha sido borrada")
         }
     });    
 });
