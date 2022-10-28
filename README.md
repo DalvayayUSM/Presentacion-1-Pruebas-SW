@@ -14,7 +14,7 @@ Este sitio consiste en almacen de recetas que permite realizar las siguientes op
 * Eliminar recetas
 
 ## Instalación
-1. Descargar los archivos que se encuentran en el [repositorio](https://github.com/DalvayayUSM/Presentacion-1-Pruebas-SW.git
+1. Descargar los archivos que se encuentran en el [repositorio](https://github.com/DalvayayUSM/Presentacion-1-Pruebas-SW.git)
 2. Ejecutar el archivo "index.html"
 
 ## Cómo usar
