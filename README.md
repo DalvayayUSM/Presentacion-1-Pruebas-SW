@@ -27,18 +27,18 @@ Al ingresar al sitio, aparecerá una tabla con la siguiente información:
 Adicionalmente, bajo la tabla se encuentra un botón para agregar recetas.
 Siempre que haya recetas almacenadas, serán desplegadas en la tabla.
 
-Acciones posibles:
+### Acciones posibles:
 
-### Agregar receta
+#### Agregar receta
 Se desplegará un modal solicitando el nombre, ingredientes e instrucciones de la receta. Luego, se puede decidir si agregar la receta o cancelar esta acción.
 
-### Expandir receta
+#### Expandir receta
 El sitio le mostrará el nombre, los ingredientes y las instrucciones de la receta elegida.
 
-### Editar receta
+#### Editar receta
 Se le pedirá modificar el nombre de la receta, luego los ingredientes y finalmente las instrucciones. Luego de aceptar, la receta se cambiará con la información entregada.
 
-### Eliminar receta
+#### Eliminar receta
 El sistema le pedirá confirmación para eliminar la receta seleecionada. En caso de aceptar, esta se borrará.
 
 ## Cómo contribuir
